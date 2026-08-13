@@ -1,0 +1,13 @@
+{
+  "name": "sealine-permissions-demo",
+  "version": "1.0.0",
+  "description": "Sealine - 1:1 chat + role-gated Group Info, backed by a real Express server that enforces permissions server-side.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test/run-tests.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

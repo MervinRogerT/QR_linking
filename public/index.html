@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sealine — 1:1 Chat &amp; Group Permissions Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="topbar">
+  <span class="brand">● Sealine</span>
+  <label style="color:#9096A2;">Logged in as</label>
+  <select id="userSelect"></select>
+  <span class="role-pill" id="rolePill">—</span>
+  <span class="hint">Every permission check below is enforced by the server, not the browser — try switching users.</span>
+</div>
+
+<div id="app">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sb-header">
+      <span class="title">Chats</span>
+      <button class="icon-btn" title="New 1:1 chat" onclick="openNewChatPanel()">✎</button>
+    </div>
+    <div class="chat-list" id="chatList"></div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="main-empty" id="mainEmpty">Select a chat, or start a new 1:1 chat with the ✎ button.</div>
+    <div id="mainChat" style="display:none;flex-direction:column;flex:1;min-height:0;">
+      <div class="chat-header">
+        <div class="avatar" id="chatAvatar" style=""></div>
+        <div>
+          <div class="name" id="chatName"></div>
+          <div class="sub" id="chatSub"></div>
+        </div>
+        <div class="actions" id="chatActions"></div>
+      </div>
+      <div class="messages" id="messagesArea"></div>
+      <div class="composer">
+        <input id="composerInput" placeholder="Message" maxlength="2000" onkeydown="if(event.key==='Enter') sendCurrentMessage()">
+        <button class="send-btn" onclick="sendCurrentMessage()">➤</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== NEW CHAT PANEL (1:1 only) ===================== -->
+<div class="scrim" id="scrim-newchat" onclick="closeNewChatPanel()"></div>
+<div class="panel" id="panel-newchat">
+  <div class="panel-header">
+    <button class="icon-btn" onclick="closeNewChatPanel()">←</button>
+    <h3>New chat</h3>
+  </div>
+  <div class="panel-body">
+    <div class="section-label">Start a 1:1 chat</div>
+    <div id="contactList"></div>
+    <div class="flag-note">Tapping a contact starts (or reopens) a direct chat. This screen never touches group membership or settings — that's a separate flow.</div>
+  </div>
+</div>
+
+<!-- ===================== GROUP INFO PANEL ===================== -->
+<div class="scrim" id="scrim-groupinfo" onclick="closeGroupInfoPanel()"></div>
+<div class="panel" id="panel-groupinfo">
+  <div class="panel-header">
+    <button class="icon-btn" onclick="closeGroupInfoPanel()">←</button>
+    <h3>Group info</h3>
+  </div>
+  <div class="panel-body" id="groupInfoBody">Loading…</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
